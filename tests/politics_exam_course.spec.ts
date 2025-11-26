@@ -2,7 +2,7 @@ import {chromium, test} from '@playwright/test';
 import {createWorker} from 'tesseract.js';
 import {readFile, writeFile} from 'node:fs/promises'
 import axios from 'axios'
-import {politics_exam_config as config} from'./config'
+import {politics_exam_config as config} from './config'
 //填写对应的页面链接
 const url = config.PAGE_URL
 const fixedMemory = [{role: 'system', content: '你的固定记忆内容，如：用户研究量子力学'}];
@@ -56,13 +56,27 @@ test('politics_exam_course', async () => {
             let content_text_buffer = await page.locator('.item-body').screenshot()//{path: exam_name + li_num + '.png'}
             let content_text_ocr = await worker.recognize(content_text_buffer)
             let content_text = content_text_ocr.data.text
-            const res = await axios.post(config.MODEL_URL, {
-                model: config.MODEL,
-                messages: [...fixedMemory, {role: 'user', content: content_text}]
-            }, {
-                headers: {'Authorization': config.API_KEY}
-            });
-            await text_in_json(li_num, subject_text + content_text, '', exam_name + '.json')
+
+            try {
+                const res = await axios.post(config.MODEL_URL, {
+                    model: config.MODEL_ID,
+                    messages: [...fixedMemory, {role: 'user', content: content_text}]
+                }, {
+                    headers: {'Authorization': 'bearer ' + config.API_KEY, 'Content-Type': 'application/json'}
+                });
+                console.log('请求成功：', res.data);
+                const answer_text: string = res.data.choices[0].message.content;
+                await text_in_json(li_num, subject_text + content_text, answer_text, exam_name + '.json')
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    console.error('401 错误详情：', {
+                        status: error.response?.status,
+                        data: error.response?.data,
+                        requestHeaders: error.config?.headers
+                    });
+                }
+            }
+
 
         } while (exist_question)
 
@@ -78,7 +92,7 @@ test('politics_exam_course', async () => {
 async function text_in_json(li_key: string, text: string, answer: string = '', path: string = 'data.json') {
     let data_json: object = {}
     try {
-        let data = await readFile('./data/'+path, 'utf-8')
+        let data = await readFile('./data/' + path, 'utf-8')
         data_json = JSON.parse(data)
     } catch (err) {
         console.error(err)
