@@ -1,0 +1,12 @@
+/.idea/
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+/tests/config.ts
+/eng.traineddata
+/chi_sim.traineddata
+/data/
+/.github/
