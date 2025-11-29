@@ -40,7 +40,7 @@ test('politics_exam_course', async () => {
             await exam_item_first.click();
 
         } catch (e) {
-            if (await exam_item_first.count() == 0) {
+            if (await exam_item.count() == 0) {
                 break
             }
         }
@@ -123,7 +123,7 @@ test('politics_exam_course', async () => {
                     try{
                         await label.click({timeout:10000})//10秒找不到选项强制提交
                     }catch (e) {
-                        
+
                     }
                     
 
