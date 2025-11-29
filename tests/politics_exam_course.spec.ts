@@ -120,7 +120,12 @@ test('politics_exam_course', async () => {
                     not_checked = true
                 }
                 if (not_checked) {
-                    await label.click({timeout:10000})//10秒找不到选项强制提交
+                    try{
+                        await label.click({timeout:10000})//10秒找不到选项强制提交
+                    }catch (e) {
+                        
+                    }
+                    
 
                 }
 
