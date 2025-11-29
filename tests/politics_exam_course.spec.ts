@@ -67,7 +67,13 @@ test('politics_exam_course', async () => {
             const [list_num, subject_text] = subject.split('.')
 
             console.log(exam_name, '当前题目', subject)
-            let content_text_buffer = await content_text_body.screenshot()//{path: exam_name + li_num + '.png'}
+            let content_text_buffer: string | Buffer<ArrayBufferLike> | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | CanvasRenderingContext2D | Blob | OffscreenCanvas;
+            if(await content_text_body.locator('>div>ul>li').count()==2){
+                content_text_buffer=await content_text_body.locator('>div>.problem-body').screenshot()
+            }else {
+                 content_text_buffer= await content_text_body.screenshot()
+            }
+            //{path: exam_name + li_num + '.png'}
             let content_text_ocr = await worker.recognize(content_text_buffer)
             let content_text = content_text_ocr.data.text
             let answer_text: string;
