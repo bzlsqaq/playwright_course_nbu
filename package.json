@@ -4,20 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test3ui": "playwright test politics_exam_course.spec.ts --ui",
-    "test3": "playwright test politics_exam_course.spec.ts"
+    "creep_politics_answer_ui": "playwright test Creeps/creep_politics_answer.spec.ts --ui",
+    "creep_politics_answer": "playwright test Creeps/creep_politics_answer.spec.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.19.0",
+  "packageManager": "pnpm@10.26.0+sha512.3b3f6c725ebe712506c0ab1ad4133cf86b1f4b687effce62a9b38b4d72e3954242e643190fc51fa1642949c735f403debd44f5cb0edd657abe63a8b6a7e1e402",
   "devDependencies": {
     "@playwright/test": "^1.57.0",
     "@types/node": "^24.10.1"
   },
   "dependencies": {
     "axios": "^1.13.2",
-    "openai": "^6.9.1",
-    "tesseract.js": "^6.0.1"
+    "openai": "^6.14.0",
+    "tesseract.js": "7.0.0"
   }
 }

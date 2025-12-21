@@ -8,10 +8,9 @@ const url = config.PAGE_URL
 const fixedMemory = [{role: 'system', content: config.PROMPT}];
 
 test('politics_exam_course', async () => {
-    test.setTimeout(100000000);
+    test.setTimeout(1000*60*60*24);
 
     const browser = await chromium.launch({
-        channel: 'msedge',
         headless: false,
         args: [
             '--profile-directory=Default',
