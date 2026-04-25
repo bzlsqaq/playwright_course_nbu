@@ -1,8 +1,8 @@
-import { test } from '@playwright/test';
+import { test ,chromium} from '@playwright/test';
 //填写对应的页面链接
 const url ='https://nbuyjs.yuketang.cn/pro/lms/CSs3mnBmJ7Y/28403852/studycontent'
 
-const { chromium } = require('playwright');
+
 test('politics_course', async () => {
   test.setTimeout(100000000);
   

@@ -1,7 +1,7 @@
 import {BrowserContext, chromium, Locator, Page} from '@playwright/test';
 import {createWorker} from 'tesseract.js';
 
-;
+
 
 export class PageTools {
     readonly page: Page;
